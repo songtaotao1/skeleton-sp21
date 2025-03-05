@@ -12,28 +12,12 @@ public class Collatz {
     }
 
     public static void main(String[] args) {
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
-
-        System.out.print("Enter");
-
-        if (scanner.hasNextInt()) {
-            int number = scanner.nextInt();
-            scanner.close();
-
-            if (number <= 0) {
-                System.out.println("Error: Please enter a positive integer.");
-                return;
-            }
-
-            System.out.println("Collatz sequence:");
-            while (number != 1) {
-                System.out.print(number + " ");
-                number = nextNumber(number);
-            }
-            System.out.println(number);
-        } else {
-            System.out.println("Error: Invalid input. Please enter a positive integer.");
+        int n = 5;
+        System.out.print(n + " ");
+        while (n != 1) {
+            n = nextNumber(n);
+            System.out.print(n + " ");
+            System.out.println();
         }
     }
-
 }
