@@ -5,23 +5,24 @@ public class Collatz {
 
     /** Buggy implementation of nextNumber! */
     public static int nextNumber(int n) {
-        if (n  == 128) {
-            return 1;
-        } else if (n == 5) {
-            return 3 * n + 1;
-        } else {
-            return n * 2;
+        if (n <= 0) {
+            throw new IllegalArgumentException("Input must be a positive integer.");
         }
+        return (n % 2 == 0) ? (n / 2) : (3 * n + 1);
     }
 
     public static void main(String[] args) {
-        int n = 5;
-        System.out.print(n + " ");
-        while (n != 1) {
-            n = nextNumber(n);
-            System.out.print(n + " ");
-        }
-        System.out.println();
-    }
-}
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        System.out.print("Enter a positive integer: ");
+        int number = scanner.nextInt();
+        scanner.close();
 
+        System.out.println("Collatz sequence:");
+        while (number != 1) {
+            System.out.print(number + " -> ");
+            number = nextNumber(number);
+        }
+        System.out.println(number);
+    }
+
+}
