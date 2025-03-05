@@ -16,7 +16,7 @@ public class Collatz {
 
         System.out.print("Enter a positive integer: ");
 
-        if (scanner.hasNextInt()) {  // 确保输入的是整数
+        if (scanner.hasNextInt()) {
             int number = scanner.nextInt();
             scanner.close();
 
