@@ -14,6 +14,8 @@ public class IntListExercises {
             head.first += c;
             head = head.rest;
         }
+        head.first = head.first + c;
+
     }
 
     /**
@@ -33,7 +35,9 @@ public class IntListExercises {
         }
     }
 
-    /** Returns the max value in the IntList starting at L. */
+    /**
+     * Returns the max value in the IntList starting at L.
+     */
     public static int max(IntList L) {
         int max = L.first;
         IntList p = L.rest;
@@ -46,12 +50,13 @@ public class IntListExercises {
         return max;
     }
 
-    /** Returns true if the last digit of x is equal to
-     *  the first digit of x.
+    /**
+     * Returns true if the last digit of x is equal to
+     * the first digit of x.
      */
     public static boolean firstDigitEqualsLastDigit(int x) {
         int lastDigit = x % 10;
-        while (x > 10) {
+        while (x >= 10) {
             x = x / 10;
         }
         int firstDigit = x % 10;
@@ -66,17 +71,23 @@ public class IntListExercises {
      * @return True if there was an update to the list
      */
     public static boolean squarePrimes(IntList lst) {
-        // Base Case: we have reached the end of the list
+        // 递归终止条件：链表为空时返回 false
         if (lst == null) {
             return false;
         }
 
-        boolean currElemIsPrime = Primes.isPrime(lst.first);
+        // 检查当前节点的值是否为质数
+        boolean currIsPrime = Primes.isPrime(lst.first);
 
-        if (currElemIsPrime) {
+        // 如果是质数，平方当前节点的值
+        if (currIsPrime) {
             lst.first *= lst.first;
         }
 
-        return currElemIsPrime || squarePrimes(lst.rest);
+        // 递归处理后续节点，并记录后续链表中是否存在质数
+        boolean restHasPrime = squarePrimes(lst.rest);
+
+        // 返回当前节点或后续链表中是否存在质数
+        return currIsPrime || restHasPrime;
     }
 }

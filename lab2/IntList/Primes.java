@@ -20,7 +20,8 @@ public class Primes {
      */
     public static boolean isPrime(int n) {
         // Corner cases
-        if (n <= 1 || n == 4) return false;
+
+        if (n < 1 || n == 4) return false;
         if (n <= 3) return true;
 
         int k = 3; // Try k = 3 times
@@ -38,7 +39,9 @@ public class Primes {
         }
 
         return true;
-    }
+        }
+
+
 
     /**
      * This is a helper method to isPrime. You can ignore this method.
@@ -81,4 +84,6 @@ public class Primes {
             x++;
         }
     }
+
+
 }
