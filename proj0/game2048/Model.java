@@ -159,7 +159,19 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
-        return false;
+        // 假设棋盘为 4x4（可根据实际情况调整）
+        boolean foundmax = false;
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                Tile t = b.tile(row, col);  // 通过 b.tile(row, col) 获取对应位置的 Tile
+                if (t!=null&& t.value() == MAX_PIECE) {
+                    foundmax = true;
+                    return  foundmax;
+                }
+
+            }
+        }
+        return foundmax;
     }
 
     /**
