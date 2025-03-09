@@ -181,8 +181,34 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
-        return false;
+        boolean atLeastblank = false;
+        boolean next_same = false;
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+
+                Tile t = b.tile(col, row);
+                Tile tl = (row - 1 >= 0) ? b.tile(col, row-1) : null;
+                Tile tr = (row + 1 < 4) ? b.tile(col, row + 1) : null;
+                Tile tu = (col - 1 >= 0) ? b.tile(col - 1, row) : null;
+                Tile td = (col + 1 < 4) ? b.tile( col+ 1, row) : null;
+
+
+                if (t==null) {
+                    atLeastblank = true;
+                }else {
+                    if ((tl != null && t.value() == tl.value()) ||
+                            (tr != null && t.value() == tr.value()) ||
+                            (tu != null && t.value() == tu.value()) ||
+                            (td != null && t.value() == td.value())) {
+                        next_same = true;
+                    }
+                }
+
+
+            }
+        }
+        return  atLeastblank || next_same;
+
     }
 
 
