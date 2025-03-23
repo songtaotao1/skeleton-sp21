@@ -26,7 +26,7 @@ public class LinkedListDeque<T> implements  Deque<T>,Iterable<T>{
     }
 
 
-
+    @Override
     public void addFirst(T item) {
         Node newNode = new Node(item, sentinel, sentinel.next);
         sentinel.next.prev = newNode;
@@ -34,7 +34,7 @@ public class LinkedListDeque<T> implements  Deque<T>,Iterable<T>{
         size++;
     }
 
-
+    @Override
     public void addLast(T item) {
         Node newNode = new Node(item, sentinel.prev, sentinel);
         sentinel.prev.next = newNode;
@@ -169,6 +169,14 @@ public class LinkedListDeque<T> implements  Deque<T>,Iterable<T>{
             current = current.next; // 移动到下一个节点
             return item;
         }
+    }
+    @Override
+    public int hashCode() {
+        int result = 1;
+        for (T item : this) {
+            result = 31 * result + (item == null ? 0 : item.hashCode());
+        }
+        return result;
     }
 
 }

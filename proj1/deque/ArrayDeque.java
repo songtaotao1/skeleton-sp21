@@ -31,8 +31,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (size == items.length) {
             resize(items.length * 2); // 数组已满，扩容
         }
+        nextFirst=(nextFirst -1+items.length) % items.length;
          items[nextFirst] = item;
-         nextFirst=(nextFirst -1) % items.length;
+
          size++;
     }
     @Override
@@ -40,8 +41,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (size == items.length) {
             resize(items.length * 2); // 数组已满，扩容
         }
+        nextLast=(nextLast + 1+ items.length) % items.length;
         items[nextLast] = item;
-        nextLast=(nextLast + 1) % items.length;
+
         size++;
     }
 
@@ -84,11 +86,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if(index < 0 || index >= size){
             return null;
         }
-        return items[index];
+        return  items[(nextFirst + index) % items.length];
 
 
     }
-
+    @Override
     public void printDeque() {
         if (isEmpty()) {
             System.out.println("[]"); // 如果队列为空，打印空数组
@@ -170,6 +172,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return item;
 
         }
+    }
+    @Override
+    public int hashCode() {
+        int result = 1;
+        for (T item : this) {
+            result = 31 * result + (item == null ? 0 : item.hashCode());
+        }
+        return result;
     }
 }
 
