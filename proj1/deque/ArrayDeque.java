@@ -18,7 +18,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     public void resize(int newSize){
         T[] newItems = (T[]) new Object[newSize];
-        int start = (nextFirst ) % items.length; // 第一个元素的位置
+        int start = (nextFirst+1 ) % items.length; // 第一个元素的位置
         for (int i = 0; i < size; i++) {
             newItems[i] = items[(start + i) % items.length]; // 复制元素到新数组
         }
@@ -31,8 +31,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (size == items.length) {
             resize(items.length * 2); // 数组已满，扩容
         }
+        items[nextFirst] = item;
         nextFirst=(nextFirst -1+items.length) % items.length;
-         items[nextFirst] = item;
+
 
          size++;
     }
@@ -41,8 +42,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (size == items.length) {
             resize(items.length * 2); // 数组已满，扩容
         }
-        nextLast=(nextLast + 1+ items.length) % items.length;
         items[nextLast] = item;
+        nextLast=(nextLast + 1+ items.length) % items.length;
+
 
         size++;
     }
@@ -53,32 +55,38 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
     @Override
     public T removeFirst(){
-        if(isEmpty()){
+        if (isEmpty()) {
             return null;
         }
-        if (size > 0 && size == items.length / 4) {
-            resize(items.length / 2); // 数组利用率过低，缩容
-        }
-
-        nextFirst=(nextFirst + 1) % items.length;
-        T item = items[nextFirst];
-        items[nextFirst] = null;
+        // 计算实际要移除的位置
+        int oldIndex = (nextFirst + 1 + items.length) % items.length;
+        T item = items[oldIndex];
+        items[oldIndex] = null; // 正确置空原位置
+        nextFirst = oldIndex; // 更新指针到移除位置
         size--;
+
+        // 缩容检查（在 size 减少后）
+        if (items.length > 8 && size == items.length / 4) {
+            resize(items.length / 2);
+        }
         return item;
     }
     @Override
-    public T removeLast(){
-        if(isEmpty()){
+    public T removeLast() {
+        if (isEmpty()) {
             return null;
         }
-        if (size > 0 && size == items.length / 4) {
-            resize(items.length / 2); // 数组利用率过低，缩容
-        }
-
-        nextFirst=(nextFirst -1) % items.length;
-        T item = items[nextLast];
-        items[nextLast] = null;
+        // 计算实际要移除的位置
+        int oldIndex = (nextLast - 1 + items.length) % items.length;
+        T item = items[oldIndex];
+        items[oldIndex] = null; // 正确置空原位置
+        nextLast = oldIndex; // 更新指针到移除位置
         size--;
+
+        // 缩容检查（在 size 减少后）
+        if (items.length > 8 && size == items.length / 4) {
+            resize(items.length / 2);
+        }
         return item;
     }
     @Override
