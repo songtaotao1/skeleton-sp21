@@ -13,6 +13,16 @@ public class Tile {
         this.row = row;
         this.col = col;
         this.next = null;
+        this._merged = false;
+
+    }
+    public boolean wasMerged() {
+
+        return _merged;
+    }
+
+    void setMerged(boolean merged) {
+        this._merged = merged;
     }
 
     /** Return my current row. */
@@ -80,4 +90,5 @@ public class Tile {
 
     /** Successor tile: one I am moved to or merged with. */
     private Tile next;
+    private boolean _merged;
 }
